@@ -1,4 +1,3 @@
-// via  https://play.golang.org/p/b6UzSfSmL2, so this file has txt format
 
 
 package main
@@ -13,17 +12,17 @@ type Token struct {
 	recipient int
 }
 
-var count = 7 //номер адресата
+var count = 7 //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 func main() {
 	var token Token;
 	token.recipient = count
 	token.data = "token"
 	first := make(chan Token) 
 	last := make(chan Token)
-	go send(first, token) //поток: 1 канал получает token
-	last = channels(first,count-1) // пересылка из первого канала следующему
-	go get(last, count-1)  //поток: последний канал получает из предпоследнего token
-	time.Sleep(1 * 1e9) // main может закончиться раньше goroutines
+	go send(first, token) //пїЅпїЅпїЅпїЅпїЅ: 1 пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ token
+	last = channels(first,count-1) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	go get(last, count-1)  //пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ token
+	time.Sleep(1 * 1e9) // main пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ goroutines
 }
 
 func send (channel chan Token, t Token){
@@ -51,7 +50,7 @@ func channels(in chan Token,n int) (out chan Token){
 	previous := in
 	for i := 0; i < n; i++ {   
 		next := make(chan Token)
-		go transfer(previous, next, i) //в цикле порождаем count-1 потоков, которые пересылают token
+		go transfer(previous, next, i) //пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ count-1 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ token
 		previous = next  
 	}
 	out = previous
