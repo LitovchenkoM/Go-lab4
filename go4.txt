@@ -1,4 +1,4 @@
-// через   https://play.golang.org/p/b6UzSfSmL2, поэтому в txt
+// via  https://play.golang.org/p/b6UzSfSmL2, so this file has txt format
 
 
 package main
